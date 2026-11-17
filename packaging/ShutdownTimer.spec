@@ -8,7 +8,7 @@ ASSETS = PROJECT_ROOT / 'assets'
 
 a = Analysis(
     [str(PROJECT_ROOT / 'src' / 'shutdown_timer.py')],
-    datas=[(str(ASSETS / name), 'assets') for name in ('timer.png', 'timer.ico')],
+    datas=[(str(ASSETS / 'timer.png'), 'assets')],
 )
 pyz = PYZ(a.pure)
 
@@ -19,6 +19,6 @@ exe = EXE(
     a.datas,
     [],
     name='ShutdownTimer',
-    icon=str(ASSETS / 'shutdown-timer.ico'),
+    icon=str(ASSETS / 'timer.ico'),
     console=False,
 )

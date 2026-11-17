@@ -8,6 +8,7 @@ __pycache__/
 # PyInstaller
 /build/
 /dist/
+/ShutdownTimer.exe
 
 # Local editor and Windows files
 /.vscode/

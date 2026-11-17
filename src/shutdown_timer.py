@@ -84,14 +84,10 @@ class ShutdownTimer:
         root.geometry('440x650')
         root.minsize(420, 620)
         try:
-            root.iconbitmap(str(ASSET_DIR / 'timer.ico'))
+            self.icon = tk.PhotoImage(master=root, file=str(ASSET_DIR / 'timer.png'))
         except tk.TclError:
-            try:
-                self.icon = tk.PhotoImage(file=str(ASSET_DIR / 'timer.png'))
-                root.iconphoto(True, self.icon)
-            except tk.TclError:
-                pass
-        root.after_idle(self.style_titlebar)
+            self.icon = None
+        root.bind('<Map>', self.style_window)
 
         page = tk.Frame(root, bg=BG)
         page.pack(fill='both', expand=True, padx=24, pady=(18, 16))
@@ -166,7 +162,11 @@ class ShutdownTimer:
         self.cancel = self.button(controls, 'Скасувати', self.cancel_timer, FIELD, TEXT, 11, 9)
         self.cancel.pack(fill='x', pady=(7, 0))
 
-    def style_titlebar(self):
+    def style_window(self, event):
+        if event.widget is not self.root:
+            return
+        if self.icon is not None:
+            self.root.iconphoto(True, self.icon)
         if sys.platform != 'win32':
             return
         try:
